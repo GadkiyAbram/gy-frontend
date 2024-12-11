@@ -8,6 +8,11 @@ import {
   toJS
 } from 'mobx';
 import AuthService from '../../services/AuthService';
+import {
+  methods,
+  statusSuccess,
+  token
+} from '../../const';
 
 class AuthStore {
   authorized = false;
@@ -57,19 +62,23 @@ class AuthStore {
 
   async login() {
     try {
-      console.log(this.userLogin, this.password);
-      const response = await AuthService.login(this.userLogin, this.password);
+      const response = await gyrodata
+        .service('auth.login')
+        .body({
+          username: this.userLogin,
+          password: this.password
+        })
+        .call(methods.POST);
 
-      console.log(response);
-
-      if (response.data) {
-        localStorage.setItem('token', response.data);
-        this.setPassword('ssss')
+      if (
+        response.data &&
+        response.status === statusSuccess
+      ) {
+        localStorage.setItem(token, response.data);
         this.setAuth(true);
-        this.setUser(response.data);
       }
     } catch (err) {
-      console.error(err.message);
+      console.error(err);
     }
   }
 

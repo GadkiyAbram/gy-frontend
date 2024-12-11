@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {observer} from 'mobx-react';
 import BatteryPageView from './BatteryPageView';
-import BatteryStore from "../../stores/batteries/BatteryStore";
+import BatteryStore from '../../stores/batteries/BatteryStore';
 
 class BatteryPage extends Component {
   batteryStore;
