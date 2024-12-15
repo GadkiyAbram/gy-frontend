@@ -9,8 +9,8 @@ import {
   TableCell,
   TableBody
 } from '@material-ui/core';
-import useStyles from './styles';
 import Pagination from '../Pagination/Pagination';
+import s from './styles.module.css';
 
 const Table = ({
   columns,
@@ -23,17 +23,15 @@ const Table = ({
 }) => {
   const defaultFormat = (value) => value;
 
-  const styles = useStyles();
-
   return (
     <div>
-      <TableContainer component={Paper} className={styles.tableContainer}>
-        <BaseTable className={styles.table} >
+      <TableContainer component={Paper} className={s.tableContainer}>
+        <BaseTable className={s.table} >
           <TableHead>
             <TableRow>
               {columns.map((column) => (
                 <TableCell
-                  className={styles.tableHeaderCell}
+                  className={s.headerCell}
                   key={column?.key}>{column?.title}
                 </TableCell>
               ))}
@@ -42,14 +40,14 @@ const Table = ({
           <TableBody>
             {
               data.map((row, idx) => (
-              <TableRow key={idx}>
-                {columns.map((column) => (
-                  <TableCell key={column.key}>
-                    {(column.format || defaultFormat)(row[column.key])}
-                  </TableCell>
-                ))}
-              </TableRow>
-            ))
+                <TableRow key={idx}>
+                  {columns.map((column) => (
+                    <TableCell key={column.key}>
+                      {(column.format || defaultFormat)(row[column.key])}
+                    </TableCell>
+                  ))}
+                </TableRow>
+              ))
             }
           </TableBody>
         </BaseTable>

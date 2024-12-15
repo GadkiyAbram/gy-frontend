@@ -1,17 +1,38 @@
 import React from 'react';
-import s from './styles.module.scss';
+import {NavLink} from 'react-router-dom';
+import s from './styles.module.css';
+import mainLogo from '../../img/logos/Gyrodata_Logo.jpg';
 
-const SideBar = () => {
+const Sidebar = () => {
+  const menuItems = [
+    { label: 'Main', link: '/' },
+    { label: 'Tools', link: '/tools' },
+    { label: 'Batteries', link: '/batteries' },
+    { label: 'Jobs', link: '/jobs' },
+    { label: 'Personnel', link: '/personnel' }
+  ];
+
   return (
-    <aside>
-      <h2>Related Links</h2>
-      <ul>
-        <li><a href="#">Link 1</a></li>
-        <li><a href="#">Link 2</a></li>
-        <li><a href="#">Link 3</a></li>
+    <div className={s.sidebar}>
+      <div className={s.sidebarHeader}>
+        <img
+          src={mainLogo}
+          className={s.mainLogo}
+          alt={'Application main logo'}
+        />
+      </div>
+      <ul className={s.menuList}>
+        {
+          menuItems.map(({link, label}, index) => (
+            <li key={index} className={s.menuItem}>
+              <NavLink to={link}>
+                {label}
+              </NavLink>
+            </li>
+          ))}
       </ul>
-    </aside>
+    </div>
   );
-}
+};
 
-export default SideBar;
+export default Sidebar;
