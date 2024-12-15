@@ -23,20 +23,23 @@ const BatteryPageView = (props) => {
 
   return (
     <div>
-      <Button
-        onClick={getData}>
-        See All Batteries
-      </Button>
-      <SharedTabs
-        tabs={batteryTabs}
-      />
-      <Table
-        columns={columns}
-        data={batteryData}
-        limit={limit}
-        setOffset={setNewOffset}
-        withPagination={true}
-      />
+      <h1>Batteries</h1>
+      <div>
+        <Button
+          onClick={getData}>
+          See All Batteries
+        </Button>
+        <SharedTabs
+          tabs={batteryTabs}
+        />
+        <Table
+          columns={columns}
+          data={batteryData}
+          limit={limit}
+          setOffset={setNewOffset}
+          withPagination={true}
+        />
+      </div>
     </div>
   )
 }
