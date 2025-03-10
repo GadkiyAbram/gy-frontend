@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {
   Navigate,
   Routes,
@@ -11,37 +11,34 @@ import {
   LOGIN,
   DASHBOARD
 } from './const';
+import AppMainLayout from '../Layout/AppMainLayout';
 
-export const AppRoutes = ({authorized}) => {
+export const AppRoutes = ({ authorized }) => {
   return (
-    <Fragment>
-      <Routes>
-        {
-          routes.map(({
-            path,
-            element,
-            isPublic
-          },
-          index) => (
-            <Route
-              key={index}
-              path={path}
-              element={
-                isPublic ? (
-                  authorized && path === LOGIN ? (
-                    <Navigate to={DASHBOARD} />
-                  ) : (
-                    element
-                  )
-                ) : (
-                  <ProtectedRoute authorized={authorized}>{element}</ProtectedRoute>
-                )
-              }
-            />
-          ))
+    <Routes>
+      <Route
+        path={LOGIN}
+        element={authorized ?
+          <Navigate to={DASHBOARD} /> :
+          routes.find(r => r.path === LOGIN).element}
+      />
+
+      <Route
+        path="/"
+        element={
+          <ProtectedRoute authorized={authorized}>
+            <AppMainLayout />
+          </ProtectedRoute>
         }
-      </Routes>
-    </Fragment>
+      >
+        {
+          routes
+            .filter(route => route.path !== LOGIN) // Exclude login route
+            .map(({ path, element }, index) => (
+              <Route key={index} path={path} element={element} />
+            ))}
+      </Route>
+    </Routes>
   );
 };
 
